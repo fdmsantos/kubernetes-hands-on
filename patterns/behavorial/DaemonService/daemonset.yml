@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  generateName: random-refresher-
+  labels:
+    app: random-refresher
+spec:
+  selector:
+    matchLabels:
+      app: random-refresher
+  template:
+    metadata:
+      labels:
+        app: random-refresher
+    spec:
+      containers:
+        - image: k8spatterns/random-generator:1.0
+          name: random-generator
+          command:
+            - sh
+            - -c
+            - >-
+              while true; do
+                java  RandomRunner /host_dev/random 100000;
+                sleep 30;
+              done
+          volumeMounts:
+            - mountPath: /host_dev
+              name: devices
+      volumes:
+        - name: devices

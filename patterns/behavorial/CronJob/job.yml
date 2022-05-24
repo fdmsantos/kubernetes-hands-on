@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  generateName: random-generator-cron-
+  labels:
+    app: random-generator
+spec:
+  # Every three minutes
+  schedule: "*/3 * * * *"
+  # Deadline (in seconds) for starting the Job if it misses its scheduled time. In some
+  # use cases, a task is valid only if it executed within a certain timeframe and is use‐
+  # less when executed late. For example, if a Job is not executed in the desired time
+  # because of a lack of compute resources or other missing dependencies, it might
+  # be better to skip an execution because the data it is supposed to process is obsolete already.
+  startingDeadlineSeconds: 10
+  # Specifies how to manage concurrent executions of Jobs created by the same
+  # CronJob. The default behavior Allow creates new Job instances even if the previous
+  # Jobs have not completed yet. If that is not the desired behavior, it is possible
+  # to skip the next run if the current one has not completed yet with Forbid or to
+  # cancel the currently running Job and start a new one with Replace.
+  concurrencyPolicy: Forbid
+  # Field suspending all subsequent executions without affecting already started
+  # executions.
+  suspend: false
+  # Fields specifying how many completed and failed Jobs should be kept for audit‐ing purposes.
+  successfulJobsHistoryLimit: 10
+  failedJobsHistoryLimit: 10
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - image: k8spatterns/random-generator:1.0
+              name: random-generator
+              command: [ "java", "RandomRunner", "/numbers.txt", "10000" ]
