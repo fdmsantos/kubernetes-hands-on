@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: random-generator
+spec:
+  # When there is a new request, the Service picks a Pod randomly to connect to by
+  # default. That can be changed with sessionAffinity: ClientIP, which makes all
+  # requests originating from the same client IP stick to the same Pod. Remember
+  # that Kubernetes Services performs L4 transport layer load balancing, and it cannot
+  # look into the network packets and perform application-level load balancing
+  # such as HTTP cookie-based session affinity.
+  sessionAffinity: ClientIP
+  selector:
+    app: random-generator
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080

@@ -10,7 +10,8 @@ aws eks update-kubeconfig --region eu-west-1 --name kubernetes-demo-cluster --pr
 kubectl apply -f https://s3.us-west-2.amazonaws.com/amazon-eks/docs/eks-console-full-access.yaml
 ```
 
+## Troubleshooting
 
-## WIP
-
-* Refactoring Terraform kubernetes code to use terraform-aws-eks module
+```bash
+kubectl run troubleshooting --image=praqma/network-multitool -i --tty -- sh
+```

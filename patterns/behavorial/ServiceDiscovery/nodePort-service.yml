@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: random-generator
+spec:
+  type: NodePort
+  # When a client opens a connection through the node port, it is routed to a randomly
+  # chosen Pod that may be on the same node where the connection was open
+  # or a different node. It is possible to avoid this extra hop and always force Kubernetes
+  # to pick a Pod on the node where the connection was opened by adding externalTrafficPolicy: Local to the Service definition. When this option is
+  # set, Kubernetes does not allow connecting to Pods located on other nodes, which
+  # can be an issue. To resolve that, you have to either make sure there are Pods
+  # placed on every node (e.g., by using Daemon Services), or make sure the client
+  # knows which nodes have healthy Pods placed on them.
+  externalTrafficPolicy: Local
+  selector:
+    app: random-generator
+  ports:
+    - port: 8080
+      targetPort: 8080
+#      nodePort: 30036
+      protocol: TCP
