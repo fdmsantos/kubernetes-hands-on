@@ -15,3 +15,17 @@ kubectl apply -f https://s3.us-west-2.amazonaws.com/amazon-eks/docs/eks-console-
 ```bash
 kubectl run troubleshooting --image=praqma/network-multitool -i --tty -- sh
 ```
+
+## Future
+
+Implement Robo Shop With GitOps Principles
+Use Flux (GitOps), Loadbalancer and cert manager controller, secrets
+
+## Study
+
+* istio, Linkerd, Knative, Calico
+* https://github.com/terraform-aws-modules/terraform-aws-iam/tree/master/modules/iam-role-for-service-accounts-eks
+* Admission controllers
+* Admission webhooks
+* Initializers
+* PodPresets
