@@ -23,7 +23,11 @@ Use Flux (GitOps), Loadbalancer and cert manager controller, secrets
 
 ## Study
 
-* istio, Linkerd, Knative, Calico
+* Flux
+* istio, Linkerd, consul, AWS App Mesh
+* Envoy
+* AWS DevOps Guru
+* Knative, Calico
 * https://github.com/terraform-aws-modules/terraform-aws-iam/tree/master/modules/iam-role-for-service-accounts-eks
 * Admission controllers
 * Admission webhooks
